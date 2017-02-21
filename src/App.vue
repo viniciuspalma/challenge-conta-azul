@@ -29,11 +29,20 @@
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: $background;
     color: $text;
   }
 
+  button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    font-family: inherit;
+  }
+
   .wrapper {
-    width: 980px;
+    width: 1024px;
     margin: 0 auto;
   }
 </style>

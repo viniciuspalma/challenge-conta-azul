@@ -25,9 +25,9 @@
     }
 
     img {
-      height: 14px;
+      height: 14.5px;
       max-width: 100%;
-      margin: 18px 0;
+      margin: 16px 0;
     }
   }
 </style>
