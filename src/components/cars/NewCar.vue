@@ -1,56 +1,11 @@
 <template>
   <div>
     <header-conta-azul />
-
     <div class='wrapper'>
-
       <div class='new-car'>
         <h1 class='title'>Novo Carro</h1>
 
-        <form v-on:submit='onSubmit'>
-
-          <div class='row'>
-            <div class='input-box medium'>
-              <label class='label'>Modelo:</label>
-              <input class='input' type='text' name='modelo' placeholder='Insira o modelo do carro'>
-            </div>
-
-            <div class='input-box medium'>
-              <label class='label'>Marca:</label>
-              <input class='input' type='text' name='marca' placeholder='Insira a marca do carro'>
-            </div>
-          </div>
-
-          <div class='row'>
-            <div class='input-box medium'>
-              <label class='label'>Placa:</label>
-              <input class='input' type='text' name='placa' placeholder='Insira a placa do carro'>
-            </div>
-
-            <div class='input-box medium'>
-              <label class='label'>Valor:</label>
-              <input class='input' type='text' name='valor' placeholder='Insira o valor do carro'>
-            </div>
-          </div>
-
-          <div class='row'>
-            <div class='input-box'>
-              <label class='label'>Combustível:</label>
-              <input class='input' type='text' name='combustivel' placeholder='Insira o combustível usado pelo carro'>
-            </div>
-          </div>
-
-          <div class='row'>
-            <div class='input-box'>
-              <label class='label'>Imagem:</label>
-              <input class='input' type='text' name='imagem' placeholder='Insira a imagem do carro'>
-            </div>
-          </div>
-
-          <div class='row'>
-            <button name="button">Criar novo carro</button>
-          </div>
-        </form>
+        <form-car :values='values' messageSubmit='Criar novo carro' />
       </div>
     </div>
   </div>
@@ -58,16 +13,24 @@
 
 <script>
   import HeaderContaAzul from 'components/shared/HeaderContaAzul'
+  import FormCar from 'components/cars/FormCar'
 
   export default {
     name: 'new-car',
     components: {
-      HeaderContaAzul
+      HeaderContaAzul,
+      FormCar
     },
-    methods: {
-      onSubmit (e) {
-        e.preventDefault()
-        debugger
+    data () {
+      return {
+        values: {
+          modelo: '',
+          marca: '',
+          placa: '',
+          valor: '',
+          combustivel: '',
+          imagem: ''
+        }
       }
     }
   }
@@ -79,54 +42,5 @@
   .new-car {
     margin-top: 20px;
     padding: 0 $side-default-padding;
-  }
-
-  .row {
-    font-size: 0;
-    margin-bottom: 15px;
-  }
-
-  .input-box {
-    display: inline-block;
-    vertical-align: top;
-    width: 100%;
-    padding-right: 15px;
-
-    &.medium {
-      width: 50%;
-    }
-
-    &:last-child {
-      padding-right: 0;
-    }
-  }
-
-  .input {
-    display: inline-block;
-    width: 100%;
-    height: 40px;
-    background: $white;
-    outline: 0;
-    font-size: 14px;
-    padding: 0 15px;
-    color: $text;
-    font-weight: 100;
-    border: solid 1px $border-color;
-    border-radius: $border-radius-default;
-  }
-
-  .label {
-    font-size: 13px;
-    display: block;
-    margin-bottom: 5px;
-  }
-
-  button {
-    color: $white;
-    font-size: 20px;
-    padding: 10px 20px;
-    background: $success;
-    cursor: pointer;
-    border-radius: $border-radius-default;
   }
 </style>
