@@ -6,7 +6,7 @@ import App from './App'
 import router from './router'
 
 Vue.filter('formatMoney', (value) => {
-  return accounting.formatMoney(value, 'R$', 2, '.', ',')
+  return accounting.formatMoney(value, '', 2, '.', ',')
 })
 
 /* eslint-disable no-new */
