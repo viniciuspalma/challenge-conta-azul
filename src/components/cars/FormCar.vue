@@ -87,13 +87,21 @@
     methods: {
       onSubmit (e) {
         e.preventDefault()
+
+        const router = this.$router
+        const id = this.$route.params.id
+
         this.submitCallback({
-          modelo: this.modelo,
-          marca: this.marca,
-          placa: this.placa,
-          valor: this.valor,
-          combustivel: this.combustivel,
-          imagem: this.imagem
+          router: router,
+          id: id,
+          car: {
+            modelo: this.modelo,
+            marca: this.marca,
+            placa: this.placa,
+            valor: this.valor,
+            combustivel: this.combustivel,
+            imagem: this.imagem
+          }
         })
       }
     },

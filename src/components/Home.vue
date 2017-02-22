@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import { mapActions, mapState } from 'vuex'
+  import { mapState } from 'vuex'
   import HeaderContaAzul from 'components/shared/HeaderContaAzul'
   import CarNavigation from 'components/cars/CarNavigation'
   import CustomTable from 'components/shared/table/CustomTable'
@@ -33,18 +33,13 @@
           {property: 'marca', label: 'Marca'},
           {property: 'imagem', label: 'Foto', options: {link: true}},
           {property: 'combustivel', label: 'Combustível'},
-          {property: 'valor', label: 'Valor', options: {money: true}}
+          {property: 'valor', label: 'Valor', options: {money: true}},
+          {property: 'id', label: 'Visualizar', options: {resourceLink: true}}
         ]
       }
     },
     computed: mapState({
       carsRows: state => state.cars.all
-    }),
-    methods: mapActions([
-      'getCars'
-    ]),
-    created () {
-      this.getCars()
-    }
+    })
   }
 </script>
