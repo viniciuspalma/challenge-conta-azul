@@ -1,18 +1,23 @@
 <template>
   <div class='navigation'>
-    <div class='button'>
+    <div class='button-box'>
       <router-link :to="{ name: 'NewCar' }">
-        <new-car-button></new-car-button>
+        <new-car-button/>
       </router-link>
     </div>
 
-    <div class='search'>
-      <search-car></search-car>
+    <div class='search-box'>
+      <search-car :hints="{
+        combustivel: combustivel,
+        marca: marca
+      }" />
     </div>
   </div>
 </template>
 
 <script>
+  import _ from 'lodash'
+  import { mapState } from 'vuex'
   import NewCarButton from 'components/cars/NewCarButton'
   import SearchCar from 'components/cars/SearchCar'
 
@@ -21,7 +26,11 @@
     components: {
       NewCarButton,
       SearchCar
-    }
+    },
+    computed: mapState({
+      combustivel: state => _.uniq(_.map(state.cars.all, 'combustivel')),
+      marca: state => _.uniq(_.map(state.cars.all, 'marca'))
+    })
   }
 </script>
 
@@ -31,14 +40,21 @@
   .navigation {
     margin: 20px 0;
     padding: 0 $side-default-padding;
-    overflow: hidden;
+    font-size: 0;
 
-    .button {
-      float: left;
+    .button-box,
+    .search-box {
+      display: inline-block;
+      vertical-align: middle;
+      width: 50%;
     }
 
-    .search {
-      float: right;
+    .button-box {
+      text-align: left;
+    }
+
+    .search-box {
+      text-align: right;
     }
   }
 </style>

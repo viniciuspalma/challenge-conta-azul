@@ -51,10 +51,10 @@
         const chunkedCars = _.chunk(state.cars.all, this.itemsPerPage)
 
         if (this.$route.query.page === undefined) {
-          return chunkedCars[0]
+          return chunkedCars[0] || []
         }
 
-        return chunkedCars[this.$route.query.page - 1]
+        return chunkedCars[this.$route.query.page - 1] || []
       }
     })
   }
