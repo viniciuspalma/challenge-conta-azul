@@ -29,6 +29,7 @@
   .navigation {
     margin: 20px 0;
     padding: 0 $side-default-padding;
+    overflow: hidden;
 
     .button {
       float: left;

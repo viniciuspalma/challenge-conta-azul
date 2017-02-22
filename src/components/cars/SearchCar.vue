@@ -18,9 +18,7 @@
 
   .search {
     border: solid 1px $border-color;
-
     border-radius: $border-radius-default;
-
     height: 40px;
     position: relative;
 
@@ -45,7 +43,7 @@
       border-left: solid 1px $border-color;
       width: 40px;
       height: 100%;
-      background: $background;
+      background: $background-lighten;
 
       img {
         margin: 10px;

@@ -1,12 +1,13 @@
 //colors
 $white: #FFF;
 $background: #F1F4F9;
+$background-lighten: lighten($background, 1%);
 $background-active: #D5E9FC;
 $background-hover: #FFFBEA;
 $conta-azul-blue: #147FED;
 $border-color: #C7D3DE;
-$border-color-active: #AFDAFA;
-$text: #5B7995;
+$border-color-active: #80C8F9;
+$text: #345A7D;
 $success: #00C559;
 
 //sizes

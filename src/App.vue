@@ -41,6 +41,10 @@
     font-family: inherit;
   }
 
+  a {
+    color: $conta-azul-blue;
+  }
+
   .wrapper {
     width: 1024px;
     margin: 0 auto;
