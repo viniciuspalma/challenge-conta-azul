@@ -31,7 +31,7 @@
     display: block;
     list-style: none;
     padding: 0;
-    margin: 20px 0;
+    margin: 30px 0;
     text-align: center;
     font-size: 0;
 

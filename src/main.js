@@ -4,6 +4,7 @@ import Vue from 'vue'
 import accounting from 'accounting'
 import App from './App'
 import router from './router'
+import store from 'store'
 
 Vue.filter('formatMoney', (value) => {
   return accounting.formatMoney(value, '', 2, '.', ',')
@@ -13,6 +14,7 @@ Vue.filter('formatMoney', (value) => {
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

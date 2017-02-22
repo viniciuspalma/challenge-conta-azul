@@ -1,8 +1,12 @@
 <template>
   <header class='header'>
-    <router-link :to="{ name: 'Home' }">
-      <img src='~assets/conta-azul-logo-white.png' alt='logo Conta Azul white' />
-    </router-link>
+    <div class='wrapper'>
+
+      <router-link :to="{ name: 'Home' }">
+        <img src='~assets/conta-azul-logo-white.png' alt='logo Conta Azul white' />
+      </router-link>
+
+    </div>
   </header>
 </template>
 
@@ -16,12 +20,15 @@
   @import '~styles/_variables.scss';
 
   .header {
-    padding: 0 $side-default-padding;
     height: 50px;
     background: $conta-azul-blue;
 
     a {
       text-indent: -9999px;
+    }
+
+    .wrapper {
+      padding: 0 $side-default-padding;
     }
 
     img {
