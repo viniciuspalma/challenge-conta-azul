@@ -4,8 +4,29 @@ const cars = [
   {id: 3, combustivel: 'Alcool', imagem: 'http://carros.ig.com.br/fotos/2010/290_193/Fusca2_290_193.jpg', marca: 'Volkswagen', modelo: 'Fusca', placa: 'PAI-4121', valor: '20000'}
 ]
 
+const getCarsStorage = () => {
+  if (!localStorage.getItem('cars')) {
+    localStorage.setItem('cars', JSON.stringify(cars))
+  }
+
+  return JSON.parse(localStorage.getItem('cars'))
+}
+
+const saveCar = (car) => {
+  const currentCars = getCarsStorage()
+
+  currentCars.push(car)
+
+  localStorage.setItem('cars', JSON.stringify(currentCars))
+}
+
 export default {
   getCars (cb) {
-    setTimeout(() => cb(cars), 200)
+    setTimeout(() => cb(getCarsStorage()), 200)
+  },
+
+  saveCar (car, cb) {
+    saveCar(car)
+    setTimeout(() => cb(), 200)
   }
 }

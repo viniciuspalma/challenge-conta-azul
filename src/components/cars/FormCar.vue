@@ -79,11 +79,22 @@
       values: {
         type: Object,
         required: true
+      },
+      submitCallback: {
+        type: Function
       }
     },
     methods: {
       onSubmit (e) {
         e.preventDefault()
+        this.submitCallback({
+          modelo: this.modelo,
+          marca: this.marca,
+          placa: this.placa,
+          valor: this.valor,
+          combustivel: this.combustivel,
+          imagem: this.imagem
+        })
       }
     },
     data () {
@@ -144,8 +155,8 @@
 
   button {
     color: $white;
-    font-size: 20px;
-    padding: 10px 20px;
+    font-size: 18px;
+    padding: 12px 35px;
     background: $success;
     cursor: pointer;
     border-radius: $border-radius-default;

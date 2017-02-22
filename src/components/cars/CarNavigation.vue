@@ -1,7 +1,9 @@
 <template>
   <div class='navigation'>
     <div class='button'>
-      <new-car-button></new-car-button>
+      <router-link :to="{ name: 'NewCar' }">
+        <new-car-button></new-car-button>
+      </router-link>
     </div>
 
     <div class='search'>

@@ -5,22 +5,35 @@
       <div class='new-car'>
         <h1 class='title'>Novo Carro</h1>
 
-        <form-car :values='values' messageSubmit='Criar novo carro' />
+        <form-errors :errors='errors' />
+
+        <form-car :values='values'
+          messageSubmit='Criar novo carro'
+          :submitCallback='createCar' />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import { mapActions, mapState } from 'vuex'
   import HeaderContaAzul from 'components/shared/HeaderContaAzul'
   import FormCar from 'components/cars/FormCar'
+  import FormErrors from 'components/shared/FormErrors'
 
   export default {
     name: 'new-car',
     components: {
       HeaderContaAzul,
-      FormCar
+      FormCar,
+      FormErrors
     },
+    computed: mapState({
+      errors: state => state.cars.errors
+    }),
+    methods: mapActions([
+      'createCar'
+    ]),
     data () {
       return {
         values: {
