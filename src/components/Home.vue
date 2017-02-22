@@ -4,13 +4,19 @@
 
     <div class='wrapper'>
       <car-navigation />
-      <custom-table :rows='carsRows' :fields='fields' />
-      <paginator />
+      <custom-table
+        :rows='carsRowsPerPage'
+        :fields='fields' />
+      <paginator
+        :numberOfItems='carsRows.length'
+        pathName='Home'
+        :itemsPerPage='itemsPerPage' />
     </div>
   </div>
 </template>
 
 <script>
+  import _ from 'lodash'
   import { mapState } from 'vuex'
   import HeaderContaAzul from 'components/shared/HeaderContaAzul'
   import CarNavigation from 'components/cars/CarNavigation'
@@ -27,6 +33,7 @@
     },
     data () {
       return {
+        itemsPerPage: 5,
         fields: [
           {property: 'placa', label: 'Placa'},
           {property: 'modelo', label: 'Model'},
@@ -39,7 +46,16 @@
       }
     },
     computed: mapState({
-      carsRows: state => state.cars.all
+      carsRows: state => state.cars.all,
+      carsRowsPerPage (state) {
+        const chunkedCars = _.chunk(state.cars.all, this.itemsPerPage)
+
+        if (this.$route.query.page === undefined) {
+          return chunkedCars[0]
+        }
+
+        return chunkedCars[this.$route.query.page - 1]
+      }
     })
   }
 </script>
