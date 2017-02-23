@@ -3,7 +3,9 @@
     <input type='text'
       class='input'
       placeholder='Pesquisar'
-      v-model='search' />
+      v-model='search'
+      v-on:keyup.up.prevent='prevHint'
+      v-on:keyup.down.prevent='nextHint' />
 
     <div class='icon'>
       <img src='~assets/icons/search.png' alt='Search icon' />
@@ -16,7 +18,9 @@
             Combustível
           </li>
 
-          <li class='hint' v-for='matchHintCombustivel in matchHints.combustivel'>
+          <li class='hint'
+            v-for='matchHintCombustivel in matchHints.combustivel'
+            v-bind:class='{ highlight: isHighlight(matchHintCombustivel, "combustivel") }' >
             {{ matchHintCombustivel }}
           </li>
         </ul>
@@ -26,7 +30,9 @@
             Marca
           </li>
 
-          <li class='hint' v-for='matchHintMarca in matchHints.marca'>
+          <li class='hint'
+            v-for='matchHintMarca in matchHints.marca'
+            v-bind:class='{ highlight: isHighlight(matchHintMarca, "marca") }' >
             {{ matchHintMarca }}
           </li>
         </ul>
@@ -55,6 +61,26 @@
       }
     },
     methods: {
+      resetCurrentHint () {
+        this.currentHint = 0
+      },
+
+      nextHint () {
+        if (this.currentHint >= this.totalHintsSize() - 1) {
+          this.resetCurrentHint()
+        } else {
+          this.currentHint++
+        }
+      },
+
+      prevHint () {
+        if (this.currentHint === 0) {
+          this.currentHint = this.totalHintsSize() - 1
+        } else {
+          this.currentHint--
+        }
+      },
+
       hasMatches () {
         return this.hasCombustivelMatches() || this.hasMarcaMatches()
       },
@@ -65,6 +91,29 @@
 
       hasMarcaMatches () {
         return this.matchHints.marca.length > 0
+      },
+
+      allHints () {
+        const hints = _.map(['combustivel', 'marca'], category => {
+          return _.map(this.matchHints[category], hint => {
+            return { hint, category }
+          })
+        })
+
+        return _.flatten(hints)
+      },
+
+      totalHintsSize () {
+        return this.allHints().length
+      },
+
+      currentHintObject () {
+        return this.allHints()[this.currentHint]
+      },
+
+      isHighlight (hint, category) {
+        return this.currentHintObject().hint === hint &&
+          this.currentHintObject().category === category
       },
 
       getMatches (category) {
@@ -79,7 +128,13 @@
     },
     data () {
       return {
-        search: ''
+        search: '',
+        currentHint: 0
+      }
+    },
+    watch: {
+      search () {
+        this.resetCurrentHint()
       }
     }
   }
@@ -152,6 +207,10 @@
       .hint {
         padding: 6px 10px;
         border-bottom: solid 1px $border-color;
+
+        &.highlight {
+          background: $background-active;
+        }
 
         &:last-child {
           border: none;
