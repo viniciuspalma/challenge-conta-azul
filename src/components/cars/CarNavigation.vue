@@ -27,9 +27,9 @@
       NewCarButton,
       SearchCar
     },
-    computed: mapState({
-      combustivel: state => _.uniq(_.map(state.cars.all, 'combustivel')),
-      marca: state => _.uniq(_.map(state.cars.all, 'marca'))
+    computed: mapState('cars', {
+      combustivel: state => _.uniq(_.map(state.all, 'combustivel')),
+      marca: state => _.uniq(_.map(state.all, 'marca'))
     })
   }
 </script>

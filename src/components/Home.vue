@@ -40,23 +40,23 @@
           {property: 'marca', label: 'Marca'},
           {property: 'imagem', label: 'Foto', options: {link: true}},
           {property: 'combustivel', label: 'Combustível'},
-          {property: 'valor', label: 'Valor', options: {money: true}},
-          {property: 'id', label: 'Visualizar', options: {resourceLink: true}}
+          {property: 'valor', label: 'Valor', options: {money: true}}
         ]
       }
     },
-    computed: mapState({
+    computed: mapState('cars', {
       filteredCars (state) {
-        let cars = state.cars.all
+        const filters = state.filters
+        let cars = state.all
 
-        if (state.cars.filters.combustivel !== null && state.cars.filters.marca === null) {
-          cars = _.filter(cars, { combustivel: state.cars.filters.combustivel })
-        } else if (state.cars.filters.marca !== null && state.cars.filters.combustivel === null) {
-          cars = _.filter(cars, { marca: state.cars.filters.marca })
-        } else if (state.cars.filters.marca !== null && state.cars.filters.combustivel !== null) {
+        if (filters.combustivel !== null && filters.marca === null) {
+          cars = _.filter(cars, { combustivel: filters.combustivel })
+        } else if (filters.marca !== null && filters.combustivel === null) {
+          cars = _.filter(cars, { marca: filters.marca })
+        } else if (filters.marca !== null && filters.combustivel !== null) {
           cars = _.filter(cars, {
-            combustivel: state.cars.filters.combustivel,
-            marca: state.cars.filters.marca
+            combustivel: filters.combustivel,
+            marca: filters.marca
           })
         }
 
