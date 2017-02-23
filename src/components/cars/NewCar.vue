@@ -28,10 +28,10 @@
       FormCar,
       FormErrors
     },
-    computed: mapState({
-      errors: state => state.cars.errors
+    computed: mapState('cars', {
+      errors: state => state.errors
     }),
-    methods: mapActions([
+    methods: mapActions('cars', [
       'createCar'
     ]),
     data () {

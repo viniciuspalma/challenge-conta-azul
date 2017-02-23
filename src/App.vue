@@ -9,7 +9,7 @@
 
   export default {
     name: 'app',
-    methods: mapActions([
+    methods: mapActions('cars', [
       'getCars'
     ]),
     created () {
@@ -56,5 +56,56 @@
   .wrapper {
     width: 1024px;
     margin: 0 auto;
+  }
+
+  .checkbox {
+    position: relative;
+    height: 20px;
+    width: 20px;
+
+    .input {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    .checkbox-style,
+    .label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+    }
+
+    .label {
+      display: inline-block;
+      z-index: 20;
+      opacity: 0;
+      overflow: hidden;
+    }
+
+    .checkbox-style {
+      z-index: 10;
+      background: $white;
+      border: solid 1px $border-color;
+      border-radius: $border-radius-default;
+    }
+
+    .input:checked ~ .checkbox-style {
+      border-color: $border-color-active;
+
+      &::before {
+        content: '';
+        opacity: .5;
+        width: 48px;
+        height: 48px;
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        transform: scale(.4);
+        background-image: url('~assets/icons/check.png');
+      }
+    }
   }
 </style>

@@ -35,11 +35,11 @@
       FormCar,
       FormErrors
     },
-    computed: mapState({
-      car: state => state.cars.showCar,
-      errors: state => state.cars.errors
+    computed: mapState('cars', {
+      car: state => state.showCar,
+      errors: state => state.errors
     }),
-    methods: mapActions([
+    methods: mapActions('cars', [
       'showCar',
       'editCar'
     ]),

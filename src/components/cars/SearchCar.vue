@@ -65,9 +65,9 @@
       }
     },
     computed: {
-      ...mapState({
+      ...mapState('cars', {
         filters (state) {
-          return _.reduce(state.cars.filters, (filters, value, key) => {
+          return _.reduce(state.filters, (filters, value, key) => {
             if (value === null) {
               return filters
             }
@@ -86,7 +86,10 @@
       }
     },
     methods: {
-      ...mapActions(['setFilter', 'resetFilters']),
+      ...mapActions('cars', [
+        'setFilter',
+        'resetFilters'
+      ]),
 
       selectHint () {
         this.setFilter(this.currentHintObject())
