@@ -2,6 +2,13 @@
   <div class='table-wrapper'>
     <table>
       <tr>
+        <th>
+          <div class='checkbox'>
+            <input type='checkbox' id='select-all' class='input' />
+            <label for='select-all' class='label'>Selecionar todos</label>
+            <div class='checkbox-style'></div>
+          </div>
+        </th>
         <th v-for='field in fields'>
           {{ field.label }}
         </th>
@@ -82,14 +89,17 @@
 
   td {
     font-size: 14px;
-    padding: 16px 15px;
+    padding: 14px 15px;
   }
 
   th,
   td {
     &:last-child {
       text-align: right;
-      padding-right: 50px;
+    }
+
+    &:first-child {
+      padding-left: 14px;
     }
   }
 </style>

@@ -1,5 +1,12 @@
 <template>
   <tr>
+    <td>
+      <div class='checkbox'>
+        <input type='checkbox' :id='row.id' class='input' />
+        <label :for='row.id' class='label'>{{ row.id }}</label>
+        <div class='checkbox-style'></div>
+      </div>
+    </td>
     <td v-for='field in fields'>
       <template v-if='field.options && field.options.link'>
         <a :href='row[field.property]' v-if='row[field.property]'>{{ field.label }}</a>
