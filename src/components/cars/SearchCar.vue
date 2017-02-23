@@ -1,11 +1,22 @@
 <template>
   <div class='search-car'>
+    <ul class='selected-filters' v-if='filters.length > 0'>
+      <span class='reset-filters'
+        alt='Remover filtros'
+        v-on:click='resetFilters'>X</span>
+      <li v-for='(filter, index) in filters' class='filter'>
+        {{ filter.hint }}
+      </li>
+    </ul>
+
     <input type='text'
       class='input'
       placeholder='Pesquisar'
       v-model='search'
+      v-on:blur='resetHintsResults'
       v-on:keyup.up.prevent='prevHint'
-      v-on:keyup.down.prevent='nextHint' />
+      v-on:keyup.down.prevent='nextHint'
+      v-on:keyup.enter.prevent='selectHint' />
 
     <div class='icon'>
       <img src='~assets/icons/search.png' alt='Search icon' />
@@ -43,6 +54,7 @@
 
 <script>
   import _ from 'lodash'
+  import { mapActions, mapState } from 'vuex'
 
   export default {
     name: 'search-car',
@@ -53,6 +65,19 @@
       }
     },
     computed: {
+      ...mapState({
+        filters (state) {
+          return _.reduce(state.cars.filters, (filters, value, key) => {
+            if (value === null) {
+              return filters
+            }
+
+            filters.push({ hint: value, category: key })
+            return filters
+          }, [])
+        }
+      }),
+
       matchHints () {
         return {
           combustivel: this.getMatches('combustivel'),
@@ -61,6 +86,17 @@
       }
     },
     methods: {
+      ...mapActions(['setFilter', 'resetFilters']),
+
+      selectHint () {
+        this.setFilter(this.currentHintObject())
+        this.resetHintsResults()
+      },
+
+      resetHintsResults () {
+        this.search = ''
+      },
+
       resetCurrentHint () {
         this.currentHint = 0
       },
@@ -216,6 +252,58 @@
           border: none;
         }
       }
+    }
+
+    .selected-filters {
+      background: $white;
+      height: 40px;
+      border-radius: $border-radius-default;
+      border: solid 1px $border-color;
+      list-style: none;
+      position: absolute;
+      top: 0;
+      right: 235px;
+      font-size: 12px;
+      padding: 0 4px;
+      margin: 0;
+
+      .reset-filters {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        width: 16px;
+        height: 16px;
+        border-radius: 8px;
+        background: red;
+        text-align: center;
+        font-weight: 400;
+        font-size: 10px;
+        line-height: 16px;
+        color: $white;
+        cursor: pointer;
+      }
+
+      .filter {
+        border-radius: 2px;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 4px 0;
+        padding: 8px 20px;
+        background: $background-active;
+        font-weight: 900;
+        margin-right: 4px;
+
+        &:last-of-type {
+          margin-right: 0;
+        }
+      }
+    }
+
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity .2s
+    }
+    .fade-enter, .fade-leave-to {
+      opacity: 0
     }
   }
 </style>

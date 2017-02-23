@@ -8,7 +8,7 @@
         :rows='carsRowsPerPage'
         :fields='fields' />
       <paginator
-        :numberOfItems='carsRows.length'
+        :numberOfItems='filteredCars.length'
         pathName='Home'
         :itemsPerPage='itemsPerPage' />
     </div>
@@ -46,9 +46,24 @@
       }
     },
     computed: mapState({
-      carsRows: state => state.cars.all,
+      filteredCars (state) {
+        let cars = state.cars.all
+
+        if (state.cars.filters.combustivel !== null && state.cars.filters.marca === null) {
+          cars = _.filter(cars, { combustivel: state.cars.filters.combustivel })
+        } else if (state.cars.filters.marca !== null && state.cars.filters.combustivel === null) {
+          cars = _.filter(cars, { marca: state.cars.filters.marca })
+        } else if (state.cars.filters.marca !== null && state.cars.filters.combustivel !== null) {
+          cars = _.filter(cars, {
+            combustivel: state.cars.filters.combustivel,
+            marca: state.cars.filters.marca
+          })
+        }
+
+        return cars
+      },
       carsRowsPerPage (state) {
-        const chunkedCars = _.chunk(state.cars.all, this.itemsPerPage)
+        const chunkedCars = _.chunk(this.filteredCars, this.itemsPerPage)
 
         if (this.$route.query.page === undefined) {
           return chunkedCars[0] || []

@@ -3,7 +3,11 @@ import _ from 'lodash'
 const state = {
   all: [],
   errors: [],
-  showCar: {}
+  showCar: {},
+  filters: {
+    combustivel: null,
+    marca: null
+  }
 }
 
 const mutations = {
@@ -32,6 +36,17 @@ const mutations = {
     cars.push(car)
 
     state.all = cars
+  },
+
+  SET_FILTER (state, filter) {
+    state.filters[filter.category] = filter.hint
+  },
+
+  RESET_FILTERS (state, filter) {
+    state.filters = {
+      combustivel: null,
+      marca: null
+    }
   }
 }
 

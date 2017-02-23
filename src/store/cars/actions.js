@@ -39,3 +39,11 @@ export const editCar = ({commit}, payload) => {
   apiCar.updateCar(payload.car, (current) => commit('UPDATE_CAR', current))
   commit('SHOW_CAR', payload.car)
 }
+
+export const setFilter = ({ commit }, filter) => {
+  commit('SET_FILTER', filter)
+}
+
+export const resetFilters = ({ commit }) => {
+  commit('RESET_FILTERS')
+}
