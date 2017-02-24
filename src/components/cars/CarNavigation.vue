@@ -4,6 +4,18 @@
       <router-link :to="{ name: 'NewCar' }">
         <new-car-button/>
       </router-link>
+
+      <button class='action edit'
+        v-if='showEdit()'
+        v-on:click='clickEdit'>
+        Editar
+      </button>
+
+      <button class='action delete'
+        v-if='showDelete()'
+        v-on:click='clickDelete'>
+        Deletar
+      </button>
     </div>
 
     <div class='search-box'>
@@ -27,10 +39,35 @@
       NewCarButton,
       SearchCar
     },
-    computed: mapState('cars', {
-      combustivel: state => _.uniq(_.map(state.all, 'combustivel')),
-      marca: state => _.uniq(_.map(state.all, 'marca'))
-    })
+    computed: {
+      ...mapState('cars', {
+        combustivel: state => _.uniq(_.map(state.all, 'combustivel')),
+        marca: state => _.uniq(_.map(state.all, 'marca'))
+      }),
+
+      ...mapState('table', {
+        rowsSelected: state => {
+          if (state.tables.cars === undefined) {
+            return []
+          }
+          return state.tables.cars.rowsSelected
+        }
+      })
+    },
+    methods: {
+      showEdit () {
+        return this.rowsSelected.length === 1
+      },
+      showDelete () {
+        return this.rowsSelected.length > 0
+      },
+      clickEdit () {
+        this.$router.push({ name: 'ShowCar', params: { id: this.rowsSelected[0] } })
+      },
+      clickDelete () {
+
+      }
+    }
   }
 </script>
 
@@ -55,6 +92,50 @@
 
     .search-box {
       text-align: right;
+    }
+
+    a,
+    .action {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 15px;
+    }
+
+    .action {
+      position: relative;
+      height: 40px;
+      width: 40px;
+      text-indent: -9999px;
+      border-radius: $border-radius-default;
+
+      &.edit::before,
+      &.delete::before {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        width: 48px;
+        height: 48px;
+        transform: scale(.4);
+      }
+
+      &.edit {
+        background: $info;
+
+        &::before {
+          filter: invert(1);
+          background: url('~assets/icons/edit.png');
+        }
+      }
+
+      &.delete {
+        background: $alert;
+
+        &::before {
+          filter: invert(1);
+          background: url('~assets/icons/delete.png');
+        }
+      }
     }
   }
 </style>
