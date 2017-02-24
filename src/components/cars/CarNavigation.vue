@@ -29,7 +29,7 @@
 
 <script>
   import _ from 'lodash'
-  import { mapState } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
   import NewCarButton from 'components/cars/NewCarButton'
   import SearchCar from 'components/cars/SearchCar'
 
@@ -55,6 +55,11 @@
       })
     },
     methods: {
+      ...mapActions('cars', [
+        'deleteCar',
+        'massDeleteCars'
+      ]),
+
       showEdit () {
         return this.rowsSelected.length === 1
       },
@@ -65,7 +70,11 @@
         this.$router.push({ name: 'ShowCar', params: { id: this.rowsSelected[0] } })
       },
       clickDelete () {
-
+        if (this.rowsSelected.length > 1) {
+          this.massDeleteCars(this.rowsSelected)
+        } else {
+          this.deleteCar(this.rowsSelected[0])
+        }
       }
     }
   }

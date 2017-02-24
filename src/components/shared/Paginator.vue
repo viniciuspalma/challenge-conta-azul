@@ -47,7 +47,7 @@
         if (this.$route.query.page === undefined && number === 1) {
           return true
         }
-        return number === this.$route.query.page
+        return number === _.parseInt(this.$route.query.page)
       }
     }
   }

@@ -45,11 +45,19 @@ const mutations = {
     state.filters[filter.category] = filter.hint
   },
 
-  RESET_FILTERS (state, filter) {
+  RESET_FILTERS (state) {
     state.filters = {
       combustivel: null,
       marca: null
     }
+  },
+
+  DELETE_CAR (state, carId) {
+    state.all = _.reject(state.all, car => car.id === carId)
+  },
+
+  MASS_DELETE_CARS (state, carIds) {
+    state.all = _.reject(state.all, car => _.includes(carIds, car.id))
   }
 }
 
@@ -98,6 +106,14 @@ const actions = {
 
   resetFilters ({ commit }) {
     commit('RESET_FILTERS')
+  },
+
+  deleteCar ({ commit }, carId) {
+    apiCar.deleteCar(carId, () => commit('DELETE_CAR', carId))
+  },
+
+  massDeleteCars ({ commit }, carIds) {
+    apiCar.massDeleteCars(carIds, () => commit('MASS_DELETE_CARS', carIds))
   }
 }
 

@@ -65,6 +65,17 @@ const updateCar = (car) => {
   return findCar(car.id)
 }
 
+const deleteCar = (carId) => {
+  const currentCars = getCarsStorage()
+
+  _.remove(currentCars, (car) => car.id === carId)
+  localStorage.setItem('cars', JSON.stringify(currentCars))
+}
+
+const massDeleteCars = (carIds) => {
+  _.each(carIds, carId => deleteCar(carId))
+}
+
 export default {
   getCars (cb) {
     setTimeout(() => cb(getCarsStorage()), 200)
@@ -81,5 +92,15 @@ export default {
 
   updateCar (car, cb) {
     setTimeout(() => cb(updateCar(car)), 200)
+  },
+
+  deleteCar (carId, cb) {
+    deleteCar(carId)
+    setTimeout(() => cb(), 200)
+  },
+
+  massDeleteCars (carIds, cb) {
+    massDeleteCars(carIds)
+    setTimeout(() => cb(), 200)
   }
 }
