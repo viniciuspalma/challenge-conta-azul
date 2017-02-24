@@ -1,5 +1,5 @@
 <template>
-  <form v-on:submit='onSubmit'>
+  <form v-on:submit.prevent='onSubmit'>
     <div class='row'>
       <div class='input-box medium'>
         <label class='label'>Modelo:</label>
@@ -63,7 +63,8 @@
     </div>
 
     <div class='row'>
-      <button name="button">{{ messageSubmit }}</button>
+      <button name='button'>{{ messageSubmit }}</button>
+      <button name='button' class='back' type='button' v-on:click='clickBack'>Voltar</button>
     </div>
   </form>
 </template>
@@ -85,9 +86,7 @@
       }
     },
     methods: {
-      onSubmit (e) {
-        e.preventDefault()
-
+      onSubmit () {
         const router = this.$router
         const id = this.$route.params.id
 
@@ -103,6 +102,9 @@
             imagem: this.imagem
           }
         })
+      },
+      clickBack () {
+        this.$router.go(-1)
       }
     },
     data () {
@@ -168,5 +170,10 @@
     background: $success;
     cursor: pointer;
     border-radius: $border-radius-default;
+    margin-right: 15px;
+
+    &.back {
+      background: $alert;
+    }
   }
 </style>

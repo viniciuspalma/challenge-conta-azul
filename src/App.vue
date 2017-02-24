@@ -47,6 +47,12 @@
     appearance: none;
     border: none;
     font-family: inherit;
+    cursor: pointer;
+    outline: 0;
+
+    &:hover {
+      box-shadow: 0 1px 20px -5px #000;
+    }
   }
 
   a {
@@ -107,5 +113,12 @@
         background-image: url('~assets/icons/check.png');
       }
     }
+  }
+  
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .2s
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0
   }
 </style>
