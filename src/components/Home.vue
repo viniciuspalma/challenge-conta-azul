@@ -6,7 +6,8 @@
       <car-navigation />
       <custom-table
         :rows='carsRowsPerPage'
-        :fields='fields' />
+        :fields='fields'
+        table-name='cars' />
       <paginator
         :numberOfItems='filteredCars.length'
         pathName='Home'

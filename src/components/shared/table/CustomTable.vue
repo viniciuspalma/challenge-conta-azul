@@ -4,8 +4,8 @@
       <tr>
         <th>
           <div class='checkbox'>
-            <input type='checkbox' id='select-all' class='input' />
-            <label for='select-all' class='label'>Selecionar todos</label>
+            <input type='checkbox' class='input' :checked='isAllSelected()' />
+            <label class='label' v-on:click='onClickCheckBox'>Selecionar todos</label>
             <div class='checkbox-style'></div>
           </div>
         </th>
@@ -14,12 +14,18 @@
         </th>
       </tr>
 
-      <row-table v-for='row in rows' :fields='fields' :row='row' />
+      <row-table v-for='row in rows'
+        :fields='fields'
+        :row='row'
+        :table-name='tableName' />
+
     </table>
   </div>
 </template>
 
 <script>
+  import _ from 'lodash'
+  import { mapActions, mapState } from 'vuex'
   import RowTable from 'components/shared/table/RowTable'
 
   export default {
@@ -35,6 +41,49 @@
       fields: {
         type: Array,
         required: true
+      },
+      tableName: {
+        type: String,
+        required: true
+      }
+    },
+    computed: mapState('table', {
+      rowsSelected (state) {
+        if (this.rows.length === 0) {
+          return [1]
+        }
+        return state.tables[this.tableName].rowsSelected
+      }
+    }),
+    methods: {
+      ...mapActions('table', [
+        'createTable',
+        'selectRow',
+        'deselectRow',
+        'selectAllRows',
+        'deselectAllRows'
+      ]),
+
+      onClickCheckBox () {
+        if (this.isAllSelected()) {
+          this.deselectAllRows(this.tableName)
+        } else {
+          this.selectAllRows(this.tableName)
+        }
+      },
+
+      isAllSelected () {
+        return this.rowsSelected.length === this.rows.length
+      }
+    },
+    watch: {
+      rows () {
+        this.allSelectedButton = false
+
+        this.createTable({
+          tableName: this.tableName,
+          rowsIdentities: _.map(this.rows, 'id')
+        })
       }
     }
   }

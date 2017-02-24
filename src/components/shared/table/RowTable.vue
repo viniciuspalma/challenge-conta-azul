@@ -2,8 +2,10 @@
   <tr>
     <td>
       <div class='checkbox'>
-        <input type='checkbox' :id='row.id' class='input' />
-        <label :for='row.id' class='label'>{{ row.id }}</label>
+        <input type='checkbox' class='input' :checked='isChecked(row.id)'/>
+        <label class='label' v-on:click='onClickCheckBox(row.id)'>
+          {{ row.id }}
+        </label>
         <div class='checkbox-style'></div>
       </div>
     </td>
@@ -28,6 +30,9 @@
 </template>
 
 <script>
+  import _ from 'lodash'
+  import { mapState, mapActions } from 'vuex'
+
   export default {
     name: 'row-table',
     props: {
@@ -38,6 +43,38 @@
       row: {
         type: Object,
         required: true
+      },
+      tableName: {
+        type: String,
+        required: true
+      }
+    },
+    computed: mapState('table', {
+      rowsSelected (state) {
+        return state.tables[this.tableName].rowsSelected
+      }
+    }),
+    methods: {
+      ...mapActions('table', [
+        'selectRow',
+        'deselectRow'
+      ]),
+
+      isChecked (identity) {
+        return _.includes(this.rowsSelected, identity)
+      },
+      onClickCheckBox (identity) {
+        if (this.isChecked(identity)) {
+          this.deselectRow({
+            tableName: this.tableName,
+            rowIdentity: identity
+          })
+        } else {
+          this.selectRow({
+            tableName: this.tableName,
+            rowIdentity: identity
+          })
+        }
       }
     }
   }
