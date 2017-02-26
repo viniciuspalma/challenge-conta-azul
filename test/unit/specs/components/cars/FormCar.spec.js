@@ -6,7 +6,7 @@ import router from 'router'
 describe('FormCar.vue', () => {
   context('when values are passed as empty fields', () => {
     const vm = new Vue({
-      template: '<div><form-car :values="values"/></div>',
+      template: '<div><form-car :values="values" messageSubmit="foo" /></div>',
       components: { FormCar },
       data () {
         return {
@@ -52,6 +52,10 @@ describe('FormCar.vue', () => {
       expect(vm.$el.querySelectorAll('[name="submit"]').length).to.equal(1)
     })
 
+    it('has a submit button with correct message passed', () => {
+      expect(vm.$el.querySelector('[name="submit"]').textContent).to.contains('foo')
+    })
+
     it('has a back button', () => {
       expect(vm.$el.querySelectorAll('.back').length).to.equal(1)
     })
@@ -68,7 +72,7 @@ describe('FormCar.vue', () => {
 
   context('when values are passed as valued fields', () => {
     const vm = new Vue({
-      template: '<div><form-car :values="values"/></div>',
+      template: '<div><form-car :values="values" messageSubmit="foo" /></div>',
       components: { FormCar },
       data () {
         return {

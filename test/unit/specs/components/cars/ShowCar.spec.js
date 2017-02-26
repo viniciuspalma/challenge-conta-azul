@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import _ from 'lodash'
 import ShowCar from 'components/cars/ShowCar'
-import store, { options } from 'store'
+import { options } from 'store'
 import router from 'router'
 
 describe('ShowCar.vue', () => {

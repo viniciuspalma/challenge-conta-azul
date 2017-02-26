@@ -1,20 +1,12 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
-import _ from 'lodash'
 import SearchCar from 'components/cars/SearchCar'
-import store, { options } from 'store'
+import store from 'store'
 import router from 'router'
 
 describe('SearchCar.vue', () => {
-  let testOptions
-
-  beforeEach(() => {
-    testOptions = _.cloneDeep(options)
-  })
-
   context('first render with initial states', () => {
     const vm = new Vue({
-      template: '<div><search-car /></div>',
+      template: '<div><search-car :hints="{}"/></div>',
       components: { SearchCar },
       store,
       router
