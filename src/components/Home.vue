@@ -9,6 +9,7 @@
         :fields='fields'
         table-name='cars' />
       <paginator
+        :page='page'
         :numberOfItems='filteredCars.length'
         pathName='Home'
         :itemsPerPage='itemsPerPage' />
@@ -45,33 +46,39 @@
         ]
       }
     },
-    computed: mapState('cars', {
-      filteredCars (state) {
-        const filters = state.filters
-        let cars = state.all
+    computed: {
+      ...mapState('cars', {
+        filteredCars (state) {
+          const filters = state.filters
+          let cars = state.all
 
-        if (filters.combustivel !== null && filters.marca === null) {
-          cars = _.filter(cars, { combustivel: filters.combustivel })
-        } else if (filters.marca !== null && filters.combustivel === null) {
-          cars = _.filter(cars, { marca: filters.marca })
-        } else if (filters.marca !== null && filters.combustivel !== null) {
-          cars = _.filter(cars, {
-            combustivel: filters.combustivel,
-            marca: filters.marca
-          })
+          if (filters.combustivel !== null && filters.marca === null) {
+            cars = _.filter(cars, { combustivel: filters.combustivel })
+          } else if (filters.marca !== null && filters.combustivel === null) {
+            cars = _.filter(cars, { marca: filters.marca })
+          } else if (filters.marca !== null && filters.combustivel !== null) {
+            cars = _.filter(cars, {
+              combustivel: filters.combustivel,
+              marca: filters.marca
+            })
+          }
+
+          return cars
+        },
+        carsRowsPerPage (state) {
+          const chunkedCars = _.chunk(this.filteredCars, this.itemsPerPage)
+
+          if (this.$route.query.page === undefined) {
+            return chunkedCars[0] || []
+          }
+
+          return chunkedCars[this.$route.query.page - 1] || []
         }
+      }),
 
-        return cars
-      },
-      carsRowsPerPage (state) {
-        const chunkedCars = _.chunk(this.filteredCars, this.itemsPerPage)
-
-        if (this.$route.query.page === undefined) {
-          return chunkedCars[0] || []
-        }
-
-        return chunkedCars[this.$route.query.page - 1] || []
+      page () {
+        return _.parseInt(this.$route.query.page)
       }
-    })
+    }
   }
 </script>

@@ -24,6 +24,10 @@
   export default {
     name: 'paginator',
     props: {
+      page: {
+        type: Number,
+        required: true
+      },
       numberOfItems: {
         type: Number,
         required: true
@@ -44,10 +48,10 @@
     },
     methods: {
       isActive (number) {
-        if (this.$route.query.page === undefined && number === 1) {
+        if (this.page === undefined && number === 1) {
           return true
         }
-        return number === _.parseInt(this.$route.query.page)
+        return number === this.page
       }
     }
   }
