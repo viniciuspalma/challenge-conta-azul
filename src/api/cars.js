@@ -5,7 +5,7 @@ const cars = [
     id: 'cce3ab8e-3e01-4875-bb75-1d07f2ed1f3b',
     combustivel: 'Flex',
     imagem: null,
-    marca: 'Volkswagem',
+    marca: 'Volkswagen',
     modelo: 'Gol',
     placa: 'FFF-5498',
     valor: '20000'
@@ -15,7 +15,7 @@ const cars = [
     id: '64dd5fd8-5515-4c0a-a248-59c3fcacb2ac',
     combustivel: 'Gasolina',
     imagem: null,
-    marca: 'Volkswagem',
+    marca: 'Volkswagen',
     modelo: 'Fox',
     placa: 'FOX-4125',
     valor: '20000'

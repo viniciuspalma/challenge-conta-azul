@@ -63,8 +63,8 @@
     </div>
 
     <div class='row'>
-      <button name='button'>{{ messageSubmit }}</button>
-      <button name='button' class='back' type='button' v-on:click='clickBack'>Voltar</button>
+      <button name='submit'>{{ messageSubmit }}</button>
+      <button name='back' class='back' type='button' v-on:click='clickBack'>Voltar</button>
     </div>
   </form>
 </template>
