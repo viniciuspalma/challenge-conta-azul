@@ -13,12 +13,12 @@ describe('CarNavigation.vue', () => {
   })
 
   context('first render with initial states', () => {
-    const Component = Vue.extend({ ...CarNavigation, store })
     const vm = new Vue({
-      el: document.createElement('div'),
-      render: h => h(Component),
+      template: '<div><car-navigation /></div>',
+      components: { CarNavigation },
+      store,
       router
-    })
+    }).$mount()
 
     it('has link to new cars page', () => {
       expect(vm.$el.querySelector('.button-box a').href).to.contains('#/cars/new')
@@ -53,12 +53,13 @@ describe('CarNavigation.vue', () => {
       }
 
       const stubbedStore = new Vuex.Store(testOptions)
-      const Component = Vue.extend({ ...CarNavigation, store: stubbedStore })
+
       const vm = new Vue({
-        el: document.createElement('div'),
-        render: h => h(Component),
+        template: '<div><car-navigation /></div>',
+        components: { CarNavigation },
+        store: stubbedStore,
         router
-      })
+      }).$mount()
 
       Vue.nextTick(() => {
         expect(vm.$el.querySelectorAll('.edit').length).to.equal(1)
