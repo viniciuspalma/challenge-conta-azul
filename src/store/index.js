@@ -7,10 +7,13 @@ Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
 
-export default new Vuex.Store({
+const options = {
   modules: {
     cars,
     table
   },
   strict: debug
-})
+}
+
+export default new Vuex.Store(options)
+export { options }
