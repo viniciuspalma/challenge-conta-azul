@@ -1,3 +1,6 @@
+
+[![Build Status](https://travis-ci.org/viniciuspalma/challenge-conta-azul.svg?branch=master)](https://travis-ci.org/viniciuspalma/challenge-conta-azul)
+
 # conta-azul
 
 > A code challenge for conta azul
