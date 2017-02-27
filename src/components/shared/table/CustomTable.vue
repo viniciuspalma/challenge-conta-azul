@@ -85,6 +85,12 @@
           rowsIdentities: _.map(this.rows, 'id')
         })
       }
+    },
+    created () {
+      this.createTable({
+        tableName: this.tableName,
+        rowsIdentities: _.map(this.rows, 'id')
+      })
     }
   }
 </script>
