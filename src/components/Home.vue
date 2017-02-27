@@ -77,7 +77,7 @@
       }),
 
       page () {
-        return _.parseInt(this.$route.query.page)
+        return _.parseInt(this.$route.query.page) || 1
       }
     }
   }
