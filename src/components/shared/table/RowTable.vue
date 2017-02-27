@@ -1,5 +1,5 @@
 <template>
-  <tr>
+  <tr v-bind:class='{ selected: isChecked(row.id) }'>
     <td>
       <div class='checkbox'>
         <input type='checkbox' class='input' :checked='isChecked(row.id)'/>
