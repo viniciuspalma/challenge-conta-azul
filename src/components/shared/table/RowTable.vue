@@ -14,14 +14,11 @@
         <a :href='row[field.property]' v-if='row[field.property]'>{{ field.label }}</a>
         <p v-else>Sem {{ field.label }}</p>
       </template>
-      <template v-else-if='field.options && field.options.resourceLink'>
-        <router-link :to="{ name: 'ShowCar', params: { id: row[field.property] }}">
-          {{ field.label }}
-        </router-link>
-      </template>
+
       <template v-else-if='field.options && field.options.money'>
         <p>{{ row[field.property] | formatMoney }}</p>
       </template>
+
       <template v-else>
         <p>{{ row[field.property] }}</p>
       </template>
